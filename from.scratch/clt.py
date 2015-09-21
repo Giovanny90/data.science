@@ -1,6 +1,7 @@
 # Central Limit Thoerem
 # Plot histogram
 
+from __future__ import division
 from collections import Counter
 from distributions import normal_cdf
 import matplotlib.pyplot as plt
