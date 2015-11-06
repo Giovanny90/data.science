@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Kevin Qian" />
+  <title>Probability Theory: The Logic of Science</title>
+  <link rel="stylesheet" href="/home/kevin/styles/style.css" type="text/css" />
+  <script type="text/javascript">/*<![CDATA[*/
+  /* 
+  March 19, 2004 MathHTML (c) Peter Jipsen http://www.chapman.edu/~jipsen
+  Released under the GNU General Public License version 2 or later.
+  See the GNU General Public License (at http://www.gnu.org/copyleft/gpl.html)
+  for more details.
+  */
+  
+  function convertMath(node) {// for Gecko
+    if (node.nodeType==1) {
+      var newnode = 
+        document.createElementNS("http://www.w3.org/1998/Math/MathML",
+          node.nodeName.toLowerCase());
+      for(var i=0; i < node.attributes.length; i++)
+        newnode.setAttribute(node.attributes[i].nodeName,
+          node.attributes[i].nodeValue);
+      for (var i=0; i<node.childNodes.length; i++) {
+        var st = node.childNodes[i].nodeValue;
+        if (st==null || st.slice(0,1)!=" " && st.slice(0,1)!="\n") 
+          newnode.appendChild(convertMath(node.childNodes[i]));
+      }
+      return newnode;
+    }
+    else return node;
+  }
+  
+  function convert() {
+    var mmlnode = document.getElementsByTagName("math");
+    var st,str,node,newnode;
+    for (var i=0; i<mmlnode.length; i++)
+      if (document.createElementNS!=null)
+        mmlnode[i].parentNode.replaceChild(convertMath(mmlnode[i]),mmlnode[i]);
+      else { // convert for IE
+        str = "";
+        node = mmlnode[i];
+        while (node.nodeName!="/MATH") {
+          st = node.nodeName.toLowerCase();
+          if (st=="#text") str += node.nodeValue;
+          else {
+            str += (st.slice(0,1)=="/" ? "</m:"+st.slice(1) : "<m:"+st);
+            if (st.slice(0,1)!="/") 
+               for(var j=0; j < node.attributes.length; j++)
+                 if (node.attributes[j].nodeValue!="italic" &&
+                   node.attributes[j].nodeValue!="" &&
+                   node.attributes[j].nodeValue!="inherit" &&
+                   node.attributes[j].nodeValue!=undefined)
+                   str += " "+node.attributes[j].nodeName+"="+
+                       "\""+node.attributes[j].nodeValue+"\"";
+            str += ">";
+          }
+          node = node.nextSibling;
+          node.parentNode.removeChild(node.previousSibling);
+        }
+        str += "</m:math>";
+        newnode = document.createElement("span");
+        node.parentNode.replaceChild(newnode,node);
+        newnode.innerHTML = str;
+      }
+  }
+  
+  if (document.createElementNS==null) {
+    document.write("<object id=\"mathplayer\"\
+    classid=\"clsid:32F66A20-7614-11D4-BD11-00104BD3F987\"></object>");
+    document.write("<?import namespace=\"m\" implementation=\"#mathplayer\"?>");
+  }
+  if(typeof window.addEventListener != 'undefined'){
+    window.addEventListener('load', convert, false);
+  }
+  if(typeof window.attachEvent != 'undefined') {
+    window.attachEvent('onload', convert);
+  }
+  /*]]>*/
+  </script>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Probability Theory: The Logic of Science</h1>
+<h2 class="author">Kevin Qian</h2>
+</div>
+<h1 id="似真推理plausible-reasoning"><span class="header-section-number">1</span> 似真推理（Plausible Reasoning）</h1>
+<p>The true logic of this world is the calculus of probabilities. -- James Clerk Maxwell (1850)</p>
+<p>包含<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>个命题的表达式<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi><mo>=</mo><mi>f</mi><mo stretchy="false">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>A</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow></math>，是包含<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>M</mi><mo>=</mo><msup><mn>2</mn><mi>n</mi></msup></mrow></math>个点的空间<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math>上的逻辑函数，共有<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mn>2</mn><mi>M</mi></msup></mrow></math>个这样的函数。当<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow></math>，有四个逻辑函数<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">{</mo><msub><mi>f</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>f</mi><mn>4</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mo stretchy="false">}</mo></mrow></math>，可以通过枚举来定义，即列出真值表：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">A</th>
+<th align="left">T</th>
+<th align="left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">T</td>
+<td align="left">T</td>
+</tr>
+<tr class="even">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">T</td>
+<td align="left">F</td>
+</tr>
+<tr class="odd">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>3</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">F</td>
+<td align="left">T</td>
+</tr>
+<tr class="even">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>4</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">F</td>
+<td align="left">F</td>
+</tr>
+</tbody>
+</table>
+<p>不过很明显，上面四个函数就是： <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mi>A</mi><mo>+</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mi>A</mi></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>3</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>4</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mi>A</mi><mover><mi>A</mi><mo accent="true">‾</mo></mover></mtd></mtr></mtable></mrow></math></p>
+<p>对于一般的<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>，先考虑一些特殊的函数，这些函数恰好只在<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math>中一个点取真值。对<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi><mo>=</mo><mn>2</mn></mrow></math>，有<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mn>2</mn><mi>n</mi></msup><mo>=</mo><mn>4</mn></mrow></math>个这样的函数：</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">A,B</th>
+<th align="left">TT</th>
+<th align="left">TF</th>
+<th align="left">FT</th>
+<th align="left">FF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">T</td>
+<td align="left">F</td>
+<td align="left">F</td>
+<td align="left">F</td>
+</tr>
+<tr class="even">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">F</td>
+<td align="left">T</td>
+<td align="left">F</td>
+<td align="left">F</td>
+</tr>
+<tr class="odd">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>3</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">F</td>
+<td align="left">F</td>
+<td align="left">T</td>
+<td align="left">F</td>
+</tr>
+<tr class="even">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>4</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">F</td>
+<td align="left">F</td>
+<td align="left">F</td>
+<td align="left">T</td>
+</tr>
+</tbody>
+</table>
+<p>显然，上面的函数就是四个conjunctions： <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mi>A</mi><mi>B</mi></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mi>A</mi><mover><mi>B</mi><mo accent="true">‾</mo></mover></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>3</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mi>B</mi></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>4</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mover><mi>B</mi><mo accent="true">‾</mo></mover></mtd></mtr></mtable></mrow></math></p>
+<p>下面考虑任何在<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math>中特定点为真的逻辑函数，比如</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">A,B</th>
+<th align="left">TT</th>
+<th align="left">TF</th>
+<th align="left">FT</th>
+<th align="left">FF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>5</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">F</td>
+<td align="left">T</td>
+<td align="left">F</td>
+<td align="left">T</td>
+</tr>
+<tr class="even">
+<td align="left"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>6</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math></td>
+<td align="left">T</td>
+<td align="left">F</td>
+<td align="left">T</td>
+<td align="left">T</td>
+</tr>
+</tbody>
+</table>
+<p>可以证明，这些函数都是上面四个conjunctions中若干个在对应点为真的函数的逻辑和。从而， <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>5</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><msub><mi>f</mi><mn>2</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>f</mi><mn>4</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mi>A</mi><mover><mi>B</mi><mo accent="true">‾</mo></mover><mo>+</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mover><mi>B</mi><mo accent="true">‾</mo></mover></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo>+</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mo stretchy="false">)</mo><mover><mi>B</mi><mo accent="true">‾</mo></mover></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mover><mi>B</mi><mo accent="true">‾</mo></mover><mo>,</mo></mtd></mtr></mtable></mrow></math> 类似的， <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable><mtr><mtd columnalign="right"><msub><mi>f</mi><mn>6</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mtd><mtd columnalign="left"><mo>=</mo><msub><mi>f</mi><mn>1</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>f</mi><mn>3</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>f</mi><mn>4</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mi>A</mi><mi>B</mi><mo>+</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mi>B</mi><mo>+</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mover><mi>B</mi><mo accent="true">‾</mo></mover></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mi>B</mi><mo>+</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mover><mi>B</mi><mo accent="true">‾</mo></mover></mtd></mtr><mtr><mtd columnalign="right"></mtd><mtd columnalign="left"><mo>=</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mo>+</mo><mi>B</mi><mo>.</mo></mtd></mtr></mtable></mrow></math> 亦即，<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>6</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math>是一个implication：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>6</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo>⇒</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math>。任何在<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math>中至少一点为真的逻辑函数都可以用这种方法构造出来。共有<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mn>2</mn><mn>4</mn></msup><mo>−</mo><mn>1</mn><mo>=</mo><mn>15</mn></mrow></math>个这样的函数。剩余的函数（永远为假），只要取一个矛盾式即可：<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>f</mi><mn>16</mn></msub><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo stretchy="false">)</mo><mo>≡</mo><mi>A</mi><mover><mi>A</mi><mo accent="true">‾</mo></mover></mrow></math>。</p>
+<p>这种方法（在逻辑学教材中称为“分隔规范式约简”）对任何<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>都有效。因此，通过思维构建，可以验证：析取、合取、否定三个操作（AND，OR，NOT），足以生成任何逻辑函数，亦即它们构成完备集。由析取合取的对偶性可知，只需(AND,NOT)两个操作就可以构成演绎逻辑的完备集。</p>
+<p>有没有一个操作，可以包含AND和NOT呢？令人惊讶的是，不仅有而且还有两个这样的操作。定义AND的反NAND： <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo>↑</mo><mi>B</mi><mo>≡</mo><mover><mrow><mi>A</mi><mi>B</mi></mrow><mo accent="true">‾</mo></mover><mo>=</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mo>+</mo><mover><mi>B</mi><mo accent="true">‾</mo></mover></mrow></math> 从而立即有： <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mi>A</mi><mo accent="true">‾</mo></mover><mo>=</mo><mi>A</mi><mo>↑</mo><mi>A</mi></mrow></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mi>B</mi><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↑</mo><mi>B</mi><mo stretchy="false">)</mo><mo>↑</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↑</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo>+</mo><mi>B</mi><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↑</mo><mi>A</mi><mo stretchy="false">)</mo><mo>↑</mo><mo stretchy="false">(</mo><mi>B</mi><mo>↑</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math> 因此，任何逻辑函数都可以NAND构造出来。类似的，定义NOR为： <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo>↓</mo><mi>B</mi><mo>≡</mo><mover><mrow><mi>A</mi><mo>+</mo><mi>B</mi></mrow><mo accent="true">‾</mo></mover><mo>=</mo><mover><mi>A</mi><mo accent="true">‾</mo></mover><mover><mi>B</mi><mo accent="true">‾</mo></mover></mrow></math> 用它也可生成所有的逻辑函数： <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mover><mi>A</mi><mo accent="true">‾</mo></mover><mo>=</mo><mi>A</mi><mo>↓</mo><mi>A</mi></mrow></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo>+</mo><mi>B</mi><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↓</mo><mi>B</mi><mo stretchy="false">)</mo><mo>↓</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↓</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math> <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mi>B</mi><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↓</mo><mi>A</mi><mo stretchy="false">)</mo><mo>↓</mo><mo stretchy="false">(</mo><mi>B</mi><mo>↓</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math></p>
+<h2 id="the-basic-desiderata"><span class="header-section-number">1.1</span> The basic desiderata</h2>
+<p>对每一个需要推理的命题，我们的机器人都根据掌握的证据，赋予其一个似真度；一旦获得新的信息，它就基于这些信息修正之前的赋值。为此，首先需要在似真度和实数之间建立联系： <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtext mathvariant="normal">Desideratum (I): 似真度由实数表示</mtext></mrow></math></p>
+</body>
+</html>
