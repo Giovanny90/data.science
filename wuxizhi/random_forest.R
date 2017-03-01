@@ -1,0 +1,8 @@
+w <- read.table("data/Dermatology1.txt", header=T)
+w[, 35] <- factor(w[, 35])
+library(randomForest)
+set.seed(101010)
+(a=randomForest(V35~., data=w, importance=T, proximity=T))
+(z0 = table(w[,35], predict(a,w)))
+layout(matrix(c(1,2,3,4,5,6,7,7,7,8,8,8), nr=2, byrow=T))
+for(i in 1:8) barplot(t(importance(a))[i,], cex.names = 0.5)
